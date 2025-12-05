@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 
 if __name__ == "__main__":
-    csv_file = "20250704_nonull.csv"
+    csv_file = "alldata.csv"
     ignored_columns = ['pitch_type', 'game_date', 'spin_dir', 'spin_rate_deprecated', 'break_angle_deprecated', 'break_length_deprecated', 
                        'tfs_deprecated', 'tfs_zulu_deprecated', 'umpire', 'sv_id', 'player_name', 'des', 'events',
                        'home_team', 'away_team', 'game_year', 'pitch_name', 'hit_location', 'bb_type', 'on_3b', 'on_2b', 'on_1b', 'hc_x',
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2)
 
     # Train and evaluate model.
-    model = LogisticRegression(max_iter=1000).fit(X_train, y_train)
+    model = LogisticRegression(max_iter=1000, class_weight='balanced', n_jobs=-1, C=2.0).fit(X_train, y_train)
     y_pred = model.predict(X_val)
     accuracy = accuracy_score(y_val, y_pred)
 
