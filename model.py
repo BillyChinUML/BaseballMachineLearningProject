@@ -170,7 +170,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         csv_file = sys.argv[1]
         print(f"Using csv file: {csv_file}")
-        if sys.argv[2] == 'f':
+        if len(sys.argv) > 2 and sys.argv[2] == 'f':
             one_hot_encoding = False
 
     else:
