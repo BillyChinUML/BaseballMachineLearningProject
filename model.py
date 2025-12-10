@@ -1,4 +1,5 @@
 import sys
+import os
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
@@ -165,7 +166,7 @@ def run_experiment(csv_file: str, one_hot_encoding=True):
 
 
 if __name__ == "__main__":
-    # Use provided file, else default to 20250704_nonull.csv
+    # Use provided file, else default to alldata_processed.csv
     one_hot_encoding = True
     if len(sys.argv) > 1:
         csv_file = sys.argv[1]
@@ -174,7 +175,10 @@ if __name__ == "__main__":
             one_hot_encoding = False
 
     else:
-        csv_file = "20250704_nonull.csv"
+        csv_file = "alldata_processed.csv"
         #csv_file = 'data.csv'
-        print(f"No csv provided, using default: {csv_file}")
+        if os.path.isfile(csv_file):
+            print(f"No csv provided, using default: {csv_file}")
+        else:
+            print("Please run preprocess.py before this file.\n")
     run_experiment(csv_file, one_hot_encoding)
